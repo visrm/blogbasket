@@ -1,15 +1,17 @@
 {
   "name": "blogbasket",
   "version": "0.1.0",
-  "private": true, 
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "migrate:diff": "npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/diff_migration.sql",
+    "migrate:res": "npx prisma migrate resolve --applied migrations",
+    "db:migrate": "npx prisma migrate dev",
     "db:generate": "npx prisma generate",
-    "db:push": "npx prisma db push",
-    "db:migrate": "npx prisma migrate dev"
+    "db:push": "npx prisma db push"  
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
