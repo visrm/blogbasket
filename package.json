@@ -7,18 +7,25 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "migrate:diff": "npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/diff_migration.sql",
-    "migrate:res": "npx prisma migrate resolve --applied migrations",
+    "migrate:diff": "npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql",
+    "migrate:res": "npx prisma migrate resolve --applied 0_init",
     "db:migrate": "npx prisma migrate dev",
     "db:generate": "npx prisma generate",
-    "db:push": "npx prisma db push"  
+    "db:push": "npx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
+    "@tanstack/react-query": "^5.90.7",
+    "@trpc/client": "^11.7.1",
+    "@trpc/react-query": "^11.7.1",
+    "@trpc/server": "^11.7.1",
     "dotenv": "^17.2.3",
     "next": "16.0.1",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "server-only": "^0.0.1",
+    "superjson": "^2.2.5",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
