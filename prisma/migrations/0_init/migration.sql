@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -5,6 +8,7 @@ CREATE TABLE "User" (
     "displayName" VARCHAR(30) NOT NULL,
     "email" VARCHAR(100) NOT NULL,
     "password" VARCHAR(100) NOT NULL,
+    "role" "Role" NOT NULL DEFAULT 'USER',
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -39,7 +43,7 @@ CREATE TABLE "Social" (
 CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(200) NOT NULL,
-    "content" TEXT,
+    "content" TEXT NOT NULL,
     "mediaUrl" VARCHAR(255),
     "published" BOOLEAN NOT NULL DEFAULT false,
     "slug" VARCHAR(255) NOT NULL,
@@ -56,6 +60,8 @@ CREATE TABLE "Category" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(50) NOT NULL,
     "slug" VARCHAR(100) NOT NULL,
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );

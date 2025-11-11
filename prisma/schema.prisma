@@ -9,6 +9,12 @@ generator client {
   output   = "./generated/prisma"
 }
 
+generator zod {
+  provider  = "prisma-zod-generator"
+  output    = "./zod_prisma_schema"
+  modelCase = "PascalCase"
+}
+
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -24,8 +30,14 @@ model User {
   password    String   @db.VarChar(100)
   posts       Post[]
   profile     Profile?
+  role        Role     @default(USER)
   createdAt   DateTime @default(now()) @db.Timestamp(6)
   updatedAt   DateTime @default(now()) @db.Timestamp(6)
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Profile {
@@ -60,16 +72,18 @@ model Post {
   author     User      @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tags       Tag[]
   categoryId Int
-  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   createdAt  DateTime  @default(now()) @db.Timestamp(6)
   updatedAt  DateTime  @default(now()) @db.Timestamp(6)
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
-  name  String @db.VarChar(50)
-  slug  String @db.VarChar(100)
-  posts Post[]
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(50)
+  slug      String   @db.VarChar(100)
+  posts     Post[]
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @default(now()) @db.Timestamp(6)
 }
 
 model Tag {
