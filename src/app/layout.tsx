@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TRPCProvider } from "@/trpc/client";
+import SessionProvider from "@/components/SessionProvider"
+import { getServerSession } from "next-auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,22 +27,28 @@ export const metadata: Metadata = {
     "prisma-orm",
     "vercel",
     "typescript",
-    'fullstack'
+    "fullstack",
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
   return (
     <html lang="en" dir="ltr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TRPCProvider>
-         {children} 
+          <SessionProvider session={session}>
+            <main className="mx-auto max-w-5xl flex gap-2">
+              {children}
+            </main>
+          </SessionProvider>
         </TRPCProvider>
       </body>
     </html>

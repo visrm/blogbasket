@@ -1,7 +1,11 @@
-// import { trpc } from "@/trpc/server";
+import { getServerSession } from "next-auth";
 
 export default async function Home() {
-  <>
-    <div>Landing Page</div>
-  </>;
+  const session = await getServerSession();
+  return (
+    <>
+      <div>Landing Page</div>
+      {session?.user ? <div>loggedIn user</div> : <div>Not LoggedIn User</div>}
+    </>
+  );
 }
