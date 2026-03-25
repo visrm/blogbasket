@@ -1,7 +1,7 @@
+import { ProfileCreateInputObjectZodSchema } from '@base/prisma/zod_prisma_schema/schemas';
 import { procedure, router } from "@/trpc/init";
 import { z } from "zod";
 import { PrismaClient } from "@base/prisma/generated/prisma/client";
-import { ProfileCreateInputObjectZodSchema } from "@base/prisma/zod_prisma_schema/schemas";
 
 const prisma = new PrismaClient();
 

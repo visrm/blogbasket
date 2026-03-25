@@ -1,7 +1,7 @@
 import { CategoryCreateInputObjectZodSchema } from "@base/prisma/zod_prisma_schema/schemas";
 import { procedure, router } from "../init";
 import { PrismaClient } from "@base/prisma/generated/prisma/client";
-import { z }from "zod";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
 
